@@ -180,7 +180,8 @@
       excel.onmouseup = () => {
         clearInterval(longPress)
       }
-      excel.onmousedown = () => {
+      excel.onmousedown = (e) => {
+        e.preventDefault();
         longPress = setTimeout(() => {
           if (get_excel_attribute('innerHTML') === '<button class="btn">🚩</button>') {
             remove_flag_audio.play()
