@@ -7,6 +7,7 @@
   <title>Minesweaper</title>
   <style>
     body{
+      font-family: Arial, Helvetica, sans-serif;
       width: 100vw;
       height: 100vh;
       margin: 0;
@@ -27,8 +28,8 @@
     }
     #board{
       border: 1px solid black;
-      width: 500px;
-      height: 500px;
+      width: 100vw;
+      height: 90vh;
       display: flex;
       flex-wrap: wrap;
     }
@@ -46,31 +47,31 @@
       background-color: rgba(0, 0, 0, 0.1);
       box-shadow: inset 0px 0px 2px 0 rgba(0,0,0,0.75);
     }
-    button{
+    .btn{
       margin: 0;
       width: 100%;
       height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 15px;
+      font-size: 1vw;
     }
     .TNT{
       background-color:rgba(0, 0, 0, 0.1);
       width: 100%;
       height: 100%;
-
     }
     .game_info{
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding: 20px;
+      height: 10vh;
     }
     select, .reset  {
       border-radius: 1em;
-      font-family: cursive;
+      font-family: Arial, Helvetica, sans-serif;
       padding: .5em;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -84,7 +85,7 @@
           <option value="hard">HARD</option>
         </select>
       </div>
-      <div class="timer">😃😳😡😎😮🤠😢</div>
+      <div class="timer">😃😡😎😮😢</div>
       <div>
         <button class="reset" onclick="reset_board()">RESET</button>
       </div>
@@ -115,7 +116,7 @@
       const excel = (() => {
         const excel = document.createElement('div')
         const button = document.createElement('button')
-    
+        button.classList.add('.btn')
         excel.classList.add('excel')
         set_excel_attribute('data-pos_x', pos_x, excel)
         set_excel_attribute('data-pos_y', pos_y, excel)
@@ -180,9 +181,9 @@
           return;
         }
 
-        if (get_excel_attribute('innerHTML') === '<button>🚩</button>') {
+        if (get_excel_attribute('innerHTML') === '<button class="btn">🚩</button>') {
           remove_flag_audio.play()
-          return set_excel_attribute('innerHTML', '<button></button>')
+          return set_excel_attribute('innerHTML', '<button class="btn"></button>')
         }
         if (excel['is_TNT']) {
           show_TNT()
@@ -197,7 +198,7 @@
         e.preventDefault();
         if (!get_excel_attribute('is_open')) {
           set_flag_audio.play()
-          set_excel_attribute('innerHTML', '<button>🚩</button>')
+          set_excel_attribute('innerHTML', '<button class="btn">🚩</button>')
         }
       } 
       return excel      
