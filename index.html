@@ -17,7 +17,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5vw;
+      font-size: 1em;
     }
     * {
       user-select: none;
@@ -30,16 +30,17 @@
     #board{
       width: 100vw;
       height: 90vh;
-      display: flex;
-      flex-wrap: wrap;
       box-sizing: border-box;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(10, 1fr);
     }
     .excel{
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 100%;
+      height: 100%;
       font-weight: bold;
     }
     .revealed {
@@ -56,7 +57,7 @@
       border-radius: 1%;
       justify-content: center;
       align-items: center;
-      font-size: 1vw;
+      font-size: 1em;
     }
     .TNT{
       background-color:rgba(0, 0, 0, 0.1);
@@ -209,8 +210,8 @@
 
     function useLevels() {
       const levels = {
-        hard: {x: 30, y: 15},
-        medium: {x: 20, y: 10},
+        hard: {x: 30, y: 30},
+        medium: {x: 20, y: 20},
         easy: {x: 10, y: 10}
       }
 
@@ -296,9 +297,10 @@
         return true
       }
       function reset_board(x = _x_, y = _y_) {
-        board.style.height = `${y * 40 }px` 
-        board.style.width = `${x * 40 }px`  
+        board.style.gridTemplateColumns = `repeat(${y}, 1fr)` 
+        board.style.gridTemplateRows = `repeat(${x}, 1fr)`  
         board.innerHTML = ''
+
         game_finished_toggler(false)
         generate_board(x, y)
       }
