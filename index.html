@@ -21,6 +21,7 @@
     }
     * {
       user-select: none;
+      -webkit-user-select: none;
     }
     #game{
       /* display: grid;
@@ -100,7 +101,7 @@
         width: 100vw;
         height: 100vw;
       }
-      .smiles, .timer{
+      .smiles, .timer, .btn{
         font-size: 4vw;
       }
     }
@@ -223,7 +224,7 @@
       //   } ,1000)
       // }
 
-      excel.onmouseup = () => {
+      excel.onclick = () => {
         if (excel['is_open']) return;
         console.log("excel.onclick -> is_game_finished", is_game_finished)
 
@@ -251,8 +252,18 @@
           set_excel_attribute('innerHTML', '<button class="btn">🚩</button>')
         }
       }
-      excel.ontouchend = (e) => handle_flag_toggling(e)
-      excel.oncontextmenu = (e) => handle_flag_toggling(e)
+      if (is_mobile) {
+        let long_press;
+        excel.ontouchstart = (e) => {
+          long_press = setTimeout(() =>  handle_flag_toggling(e), 2000)
+        }
+        excel.ontouchend = () => {
+          clearTimeout(long_press)
+        }
+      } else {
+        excel.oncontextmenu = (e) => handle_flag_toggling(e)
+
+      }
       
       return excel      
     }
