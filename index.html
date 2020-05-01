@@ -79,7 +79,7 @@
     } 
     .game_info{
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       width: 100%;
       height: 10vh;
@@ -274,6 +274,7 @@
 
       function change_level(val) {
         const { x, y} = levels[val]
+        if (val === 'hard' && is_mobile) screen.orientation.lock('landscape-primary')
         _x_ = x
         _y_ = y
         reset_board(_x_, _y_)
