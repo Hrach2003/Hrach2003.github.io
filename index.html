@@ -17,7 +17,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 100%;
+      font-size: 80%;
     }
     * {
       user-select: none;
@@ -40,7 +40,7 @@
     }
     
     .smiles, .timer{
-        font-size: 1vw;
+      font-size: 1vw;
     }
     .excel{
       display: flex;
@@ -64,7 +64,7 @@
       border-radius: 1%;
       justify-content: center;
       align-items: center;
-      font-size: 100%;
+      font-size: 0.5vw;
     }
     .TNT{
       background-color:rgba(0, 0, 0, 0.1);
@@ -99,9 +99,6 @@
       #board {
         width: 100vw;
         height: 100vw;
-      }
-      .btn {
-        font-size: 50%;
       }
       .smiles, .timer{
         font-size: 4vw;
@@ -226,7 +223,7 @@
       //   } ,1000)
       // }
 
-      excel.onclick = () => {
+      excel.onmouseup = () => {
         if (excel['is_open']) return;
         console.log("excel.onclick -> is_game_finished", is_game_finished)
 
@@ -247,14 +244,16 @@
         open_audio.play()
         click_handler()  
       }
-
-      excel.oncontextmenu = (e) => {
+      const handle_flag_toggling = e => {
         e.preventDefault();
         if (!get_excel_attribute('is_open')) {
           set_flag_audio.play()
           set_excel_attribute('innerHTML', '<button class="btn">🚩</button>')
         }
-      } 
+      }
+      excel.ontouchend = (e) => handle_flag_toggling(e)
+      excel.oncontextmenu = (e) => handle_flag_toggling(e)
+      
       return excel      
     }
 
