@@ -101,7 +101,10 @@
         width: 100vw;
         height: 100vw;
       }
-      .smiles, .timer, .btn{
+      .btn{
+        font-size: 3vw
+      }
+      .smiles, .timer{
         font-size: 4vw;
       }
     }
@@ -206,27 +209,10 @@
         return (num !== 0 ? set_excel_attribute('innerText', num) : set_excel_attribute('innerText', '') )
       }
       set_excel_attribute('click_handler', click_handler, excel, false)
-      
-      // let longPress;
-      // excel.onmouseup = () => {
-      //   clearInterval(longPress)
-      // }
-      // excel.onmousedown = (e) => {
-      //   e.preventDefault();
-      //   longPress = setTimeout(() => {
-      //     if (get_excel_attribute('innerHTML') === '<button class="btn">🚩</button>') {
-      //       remove_flag_audio.play()
-      //       set_excel_attribute('innerHTML', '<button class="btn"></button>')
-      //     }else if (!get_excel_attribute('is_open')) {
-      //       set_flag_audio.play()
-      //       set_excel_attribute('innerHTML', '<button class="btn">🚩</button>')
-      //     }
-      //   } ,1000)
-      // }
+     
 
-      excel.onclick = () => {
+      const on_click_event = () => {
         if (excel['is_open']) return;
-        console.log("excel.onclick -> is_game_finished", is_game_finished)
 
         if (is_game_finished) {
           alert('reset game please')
@@ -256,14 +242,18 @@
         let long_press;
         excel.ontouchstart = (e) => {
           e.preventDefault()
+          console.log('touched')
           long_press = setTimeout(() =>  handle_flag_toggling(e), 1000)
         }
         excel.ontouchend = (e) => {
-          e.preventDefault()
-          if (long_press) clearTimeout(long_press);
-
+          if (long_press) {
+            clearTimeout(long_press)
+          } else {
+            on_click_event()
+          }
         }
       } else {
+        excel.onclick = on_click_event()
         excel.oncontextmenu = (e) => handle_flag_toggling(e)
       }
       
