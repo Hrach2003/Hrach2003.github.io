@@ -238,22 +238,24 @@
           set_excel_attribute('innerHTML', '<button class="btn">🚩</button>')
         }
       }
+
       if (is_mobile) {
+        let touchStartTimeStamp = 0;
+        let touchEndTimeStamp   = 0;
         let long_press;
         excel.ontouchstart = (e) => {
           e.preventDefault()
-          console.log('touched')
-          long_press = setTimeout(() =>  handle_flag_toggling(e), 1000)
+          touchStartTimeStamp = e.timeStamp;
         }
         excel.ontouchend = (e) => {
-          if (long_press) {
-            clearTimeout(long_press)
-          } else {
-            on_click_event()
-          }
+          e.preventDefault()
+          touchEndTimeStamp = e.timeStamp;
+          (touchEndTimeStamp - touchStartTimeStamp > 500) 
+            ? handle_flag_toggling(e) 
+            : on_click_event()
         }
       } else {
-        excel.onclick = on_click_event()
+        excel.onclick = () => on_click_event()
         excel.oncontextmenu = (e) => handle_flag_toggling(e)
       }
       
