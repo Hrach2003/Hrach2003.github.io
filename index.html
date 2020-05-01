@@ -204,7 +204,10 @@
           get_excel_attribute('data-pos_y')
         )
         if (num === 0) flood_fill();
-        if(is_winning()) game_finished_toggler(true);
+        if(is_winning()) {
+          game_finished_toggler(true);
+          alert('winner')
+        }  
 
         return (num !== 0 ? set_excel_attribute('innerText', num) : set_excel_attribute('innerText', '') )
       }
