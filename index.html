@@ -17,7 +17,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 50%;
+      font-size: 100%;
     }
     * {
       user-select: none;
@@ -26,10 +26,12 @@
       /* display: grid;
       grid-template-rows: 1fr 9fr; */
       box-sizing: border-box;
+      width: 20vw;
+      height: 20vw;
     }
     #board{
-      width: 50vw;
-      height: 50vw;
+      width: 100%;
+      height: 100%;
       box-sizing: border-box;
       border: 0.1vw solid black;  
       display: grid;
@@ -37,8 +39,8 @@
       grid-template-rows: repeat(10, 1fr);
     }
     
-    .smiles, .timer, .btn{
-        font-size: 2vw;
+    .smiles, .timer{
+        font-size: 1vw;
     }
     .excel{
       display: flex;
@@ -62,7 +64,7 @@
       border-radius: 1%;
       justify-content: center;
       align-items: center;
-      font-size: 50%;
+      font-size: 100%;
     }
     .TNT{
       background-color:rgba(0, 0, 0, 0.1);
@@ -83,9 +85,9 @@
       border-bottom:  0.1vw black solid;
     }
     select, .reset  {
-      border-radius: 1em;
+      border-radius: 1vw;
       font-family: Arial, Helvetica, sans-serif;
-      padding: .5em;
+      padding: .5vw;
       box-sizing: border-box;
     }
     .controls{
@@ -98,7 +100,9 @@
         width: 100vw;
         height: 100vw;
       }
-      
+      .btn {
+        font-size: 50%;
+      }
       .smiles, .timer{
         font-size: 4vw;
       }
@@ -131,6 +135,7 @@
 
   <script>
     //@ts-check
+    const game = document.getElementById('game');
 
     const board = document.getElementById('board');
     const returnPos = (x, y) => document.querySelector(`[data-pos_x="${x}"][data-pos_y="${y}"]`);
@@ -141,6 +146,7 @@
     const remove_flag_audio = new Audio('./Audio/down.mp3')
 
 
+    const is_mobile = !!navigator.userAgent.match(/iphone|android|blackberry/ig) || false;
     let is_game_finished = false
     const game_finished_toggler = (bool) => {
       is_game_finished = bool 
@@ -346,6 +352,10 @@
       function reset_board(x = _x_, y = _y_) {
         board.style.gridTemplateColumns = `repeat(${y}, 1fr)` 
         board.style.gridTemplateRows = `repeat(${x}, 1fr)`  
+        if(!is_mobile) {
+          game.style.height = `${2 * y }vw`
+          game.style.width = `${2 * x}vw`
+        };
         board.innerHTML = ''
 
         game_finished_toggler(false)
