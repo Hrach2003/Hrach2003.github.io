@@ -115,7 +115,7 @@
     <div class="game_info">
       <div class="controls center">
         <div class="level">
-          <select name="level" onchange="change_level(this.value)" id="level">
+          <select name="level" onfocus="(e) => e.preventDefault()" onchange="change_level(this.value)" id="level">
             <option value="easy">EASY</option>
             <option value="medium">MEDIUM</option>
             <option value="hard">HARD</option>
