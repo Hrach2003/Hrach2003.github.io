@@ -7,7 +7,7 @@
   <title>Minesweaper</title>
   <style>
     body{
-      overflow: hidden;
+      /* overflow: hidden; */
       font-family: Arial, Helvetica, sans-serif;
       width: 100%;
       height: 100;
@@ -17,24 +17,28 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1em;
+      font-size: 50%;
     }
     * {
       user-select: none;
     }
     #game{
-      display: grid;
-      grid-template-rows: 1fr 9fr;
-      box-shadow:  0px 0px 1vw 0 rgba(0,0,0,0.75);
+      /* display: grid;
+      grid-template-rows: 1fr 9fr; */
       box-sizing: border-box;
     }
     #board{
-      width: 100vw;
-      height: 90vh;
+      width: 50vw;
+      height: 50vw;
       box-sizing: border-box;
+      border: 0.1vw solid black;  
       display: grid;
       grid-template-columns: repeat(10, 1fr);
       grid-template-rows: repeat(10, 1fr);
+    }
+    
+    .smiles, .timer, .btn{
+        font-size: 2vw;
     }
     .excel{
       display: flex;
@@ -58,17 +62,23 @@
       border-radius: 1%;
       justify-content: center;
       align-items: center;
-      font-size: 1em;
+      font-size: 50%;
     }
     .TNT{
       background-color:rgba(0, 0, 0, 0.1);
       width: 100%;
       height: 100%;
     }
+    .center{
+       display: flex;
+       justify-content: center;
+       align-items: center;
+    } 
     .game_info{
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
+      width: 100%;
       height: 10vh;
       border-bottom:  0.1vw black solid;
     }
@@ -78,24 +88,44 @@
       padding: .5em;
       box-sizing: border-box;
     }
+    .controls{
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    @media screen and (max-width: 900px){
+      #board {
+        width: 100vw;
+        height: 100vw;
+      }
+      
+      .smiles, .timer{
+        font-size: 4vw;
+      }
+    }
   </style>
 </head>
 <body>
   <div id="game">
     <div class="game_info">
-      <div class="level">
-        <select name="level" onchange="change_level(this.value)" id="level">
-          <option value="easy">EASY</option>
-          <option value="medium">MEDIUM</option>
-          <option value="hard">HARD</option>
-        </select>
+      <div class="controls center">
+        <div class="level">
+          <select name="level" onchange="change_level(this.value)" id="level">
+            <option value="easy">EASY</option>
+            <option value="medium">MEDIUM</option>
+            <option value="hard">HARD</option>
+          </select>
+        </div>
       </div>
-      <div class="timer">😃😡😎😮😢</div>
-      <div>
+      <div class="smiles">😃😡😎😮😢</div>
+      <div class="controls center">
         <button class="reset" onclick="reset_board()">RESET</button>
       </div>
     </div>
     <div id="board"></div>
+    <div class="timer center">
+      <h3>10:40.5</h3>
+    </div>
   </div>
  
 
@@ -176,22 +206,22 @@
       }
       set_excel_attribute('click_handler', click_handler, excel, false)
       
-      let longPress;
-      excel.onmouseup = () => {
-        clearInterval(longPress)
-      }
-      excel.onmousedown = (e) => {
-        e.preventDefault();
-        longPress = setTimeout(() => {
-          if (get_excel_attribute('innerHTML') === '<button class="btn">🚩</button>') {
-            remove_flag_audio.play()
-            set_excel_attribute('innerHTML', '<button class="btn"></button>')
-          }else if (!get_excel_attribute('is_open')) {
-            set_flag_audio.play()
-            set_excel_attribute('innerHTML', '<button class="btn">🚩</button>')
-          }
-        } ,1000)
-      }
+      // let longPress;
+      // excel.onmouseup = () => {
+      //   clearInterval(longPress)
+      // }
+      // excel.onmousedown = (e) => {
+      //   e.preventDefault();
+      //   longPress = setTimeout(() => {
+      //     if (get_excel_attribute('innerHTML') === '<button class="btn">🚩</button>') {
+      //       remove_flag_audio.play()
+      //       set_excel_attribute('innerHTML', '<button class="btn"></button>')
+      //     }else if (!get_excel_attribute('is_open')) {
+      //       set_flag_audio.play()
+      //       set_excel_attribute('innerHTML', '<button class="btn">🚩</button>')
+      //     }
+      //   } ,1000)
+      // }
 
       excel.onclick = () => {
         if (excel['is_open']) return;
