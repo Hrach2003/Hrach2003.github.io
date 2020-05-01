@@ -274,7 +274,8 @@
 
       function change_level(val) {
         const { x, y} = levels[val]
-        if (val === 'hard' && is_mobile) screen.orientation.lock('landscape-primary')
+        // if (val === 'hard' && is_mobile) screen.orientation.lock('landscape-primary')
+        if (val === 'hard') alert('sorry on mobile this is not available');
         _x_ = x
         _y_ = y
         reset_board(_x_, _y_)
