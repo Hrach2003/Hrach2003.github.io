@@ -255,14 +255,16 @@
       if (is_mobile) {
         let long_press;
         excel.ontouchstart = (e) => {
-          long_press = setTimeout(() =>  handle_flag_toggling(e), 2000)
+          e.preventDefault()
+          long_press = setTimeout(() =>  handle_flag_toggling(e), 1000)
         }
-        excel.ontouchend = () => {
-          clearTimeout(long_press)
+        excel.ontouchend = (e) => {
+          e.preventDefault()
+          if (long_press) clearTimeout(long_press);
+
         }
       } else {
         excel.oncontextmenu = (e) => handle_flag_toggling(e)
-
       }
       
       return excel      
