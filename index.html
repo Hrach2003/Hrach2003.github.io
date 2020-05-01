@@ -58,6 +58,7 @@
       box-shadow: inset 0px 0px 2px 0 rgba(0,0,0,0.75);
     }
     .btn{
+      background-color: #fff;
       margin: 0;
       width: 100%;
       height: 100%;
@@ -65,7 +66,7 @@
       border-radius: 1%;
       justify-content: center;
       align-items: center;
-      font-size: 50%;
+      font-size: 70%;
     }
     .TNT{
       background-color:rgba(0, 0, 0, 0.1);
@@ -275,7 +276,10 @@
       function change_level(val) {
         const { x, y} = levels[val]
         // if (val === 'hard' && is_mobile) screen.orientation.lock('landscape-primary')
-        if (val === 'hard') alert('sorry on mobile this is not available');
+        if (val === 'hard' && is_mobile) {
+          alert('sorry on mobile this is not available') 
+          return
+        }
         _x_ = x
         _y_ = y
         reset_board(_x_, _y_)
